@@ -1,0 +1,44 @@
+分页查询
+    
+    后台查询10条数据，并传回一个有多少数据的数量 num
+    前端接受这个数据量 做处理 并根据这个数据显示下面有多少 1 2等
+
+注意 从 
+elemnt 中拷下了的数据 
+    1) 凡是有:的后面 就是对象  要放在data里面
+    2) @click=" "   里面的就是方法  放在method里面
+    
+1 配置文件generatororConfig.xml
+    映射配置 映射表 
+        <table tableName="cms_category" domainObjectName="Category" >
+    通过数据库连接表 利用maybatis-generator 自动生成实体 和 基本查询语句mapper
+        mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
+        就会创建 实体 实体Exanple 和 Mapper.xml 
+
+2. 看实体有没有外键关联
+    比如文章表
+         1     多      
+        作者   文章
+        栏目   文章
+                1       多
+               文章   评论   
+    创建一个extend 属性 作者 栏目 List<评论>
+    这里要看是否有需求 创建级联查询
+    1) 创建XxxExtendMapper.xml  （写一些自己需要查询数据库的方法）
+        写入映射到的【接口】 
+        写入自己需要查询【sql语句】 （写入一些级联，插入）
+        除了最基本的增删改查（因为已经生成）
+    
+    2) 写mapper接口映射 XxxExtendMapper.java ()
+        写入映射的方法 
+    
+    3) 在 IXxxService 接口
+        写自己需要实现的方法
+    
+    4) XxxServiceImpl 实现类
+        调用mapper映射出来的方法去 实现自己需要实现的方法
+        两个重要的参数 XxxMapper 和 XxxExtendMapper  写入映射方法的实现
+    5） Controller
+        
+
+
